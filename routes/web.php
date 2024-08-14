@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InertiaTestController;
+use App\Http\Controllers\ItemController;
 use Inertia\Inertia;
 
 /*
@@ -17,19 +18,22 @@ use Inertia\Inertia;
 |
 */
 
-Route::get('/inertia-test', function(){
-    return Inertia::render('InertiaTest');
-});
+// Route::get('/inertia-test', function(){
+//     return Inertia::render('InertiaTest');
+// });
 
-Route::get('/component-test', function(){
-    return Inertia::render('ComponentTest');
-});
+// Route::get('/component-test', function(){
+//     return Inertia::render('ComponentTest');
+// });
 
-Route::get('/inertia/index', [InertiaTestController::class, 'index'])->name('inertia.index');
-Route::get('/inertia/show/{id}', [InertiaTestController::class, 'show'])->name('inertia.show');
-Route::get('/inertia/create', [InertiaTestController::class, 'create'])->name('inertia.create');
-Route::post('/inertia', [InertiaTestController::class, 'store'])->name('inertia.store');
-Route::delete('/inertia/{id}', [InertiaTestController::class, 'delete'])->name('inertia.delete');
+// Route::get('/inertia/index', [InertiaTestController::class, 'index'])->name('inertia.index');
+// Route::get('/inertia/show/{id}', [InertiaTestController::class, 'show'])->name('inertia.show');
+// Route::get('/inertia/create', [InertiaTestController::class, 'create'])->name('inertia.create');
+// Route::post('/inertia', [InertiaTestController::class, 'store'])->name('inertia.store');
+// Route::delete('/inertia/{id}', [InertiaTestController::class, 'delete'])->name('inertia.delete');
+
+Route::resource('items', ItemController::class)
+->middleware(['auth', 'verified']);
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [

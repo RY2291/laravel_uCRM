@@ -3,6 +3,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Head } from '@inertiajs/vue3';
 import { reactive } from 'vue';
 import { Inertia } from '@inertiajs/inertia';
+import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 
 defineProps({
     errors: Object
@@ -15,7 +16,7 @@ const form = reactive({
 })
 
 const storeItem = () =>{
-    Inertia.post('/items', from)
+    Inertia.post('/items', form)
 }
 
 </script>
@@ -35,6 +36,8 @@ const storeItem = () =>{
             <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
                 <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
+                        <!-- バリデーションコンポーネント -->
+                        <BreezeValidationErrors :errors="errors" />
                         <!-- tailblock -->
                         <section class="text-gray-600 body-font relative">
                             <form @submit.prevent="storeItem">

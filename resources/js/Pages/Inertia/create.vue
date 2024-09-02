@@ -2,6 +2,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { ref } from "vue";
 import { reactive } from "vue";
+import BreezeValidationErrors from '@/Components/ValidationErrors.vue';
 
 defineProps({
     errors: Object
@@ -15,7 +16,7 @@ const form = reactive({
     content: null
 })
 
-const submitFunc = () =>{
+const submitFunc = () => {
     Inertia.post('/inertia', form)
 }
 </script>
@@ -23,6 +24,7 @@ const submitFunc = () =>{
 
 <template>
     <!-- preventをつけることで、ボタンクリック時にページ読み込みを防止する -->
+    <BreezeValidationErrors :errors="errors" />
     <form @submit.prevent="submitFunc">
         <input name="title" v-model="form.title">{{ form.title }}<br>
         <div v-if="errors.title">{{ errors.title }}</div>

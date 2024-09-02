@@ -154,6 +154,9 @@ return [
     */
 
     'attributes' => [
+        'name' => '商品名',
+        'memo' => 'メモ',
+        'price' => '金額',
     ],
 
 ];

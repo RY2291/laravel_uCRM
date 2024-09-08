@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\InertiaTestController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CustomerController;
 use Inertia\Inertia;
 
 /*
@@ -33,6 +34,9 @@ use Inertia\Inertia;
 // Route::delete('/inertia/{id}', [InertiaTestController::class, 'delete'])->name('inertia.delete');
 
 Route::resource('items', ItemController::class)
+->middleware(['auth', 'verified']);
+
+Route::resource('customers', CustomerController::class)
 ->middleware(['auth', 'verified']);
 
 Route::get('/', function () {

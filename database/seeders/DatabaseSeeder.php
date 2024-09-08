@@ -20,5 +20,7 @@ class DatabaseSeeder extends Seeder
             ItemSeeder::class
         ]);
         \App\Models\Customer::factory(1000)->create();
+        \App\Models\Purchase::factory(100)->create();
+
     }
 }

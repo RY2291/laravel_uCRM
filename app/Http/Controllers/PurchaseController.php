@@ -35,7 +35,6 @@ class PurchaseController extends Controller
             ->get();
 
         return Inertia::render('Purchases/Create', [
-            'customers' => $customers,
             'items' => $items
         ]);
     }
@@ -64,7 +63,7 @@ class PurchaseController extends Controller
             }
 
             DB::commit();
-            return to_route('dashboard');
+            return to_route('dashboard');   
         } catch (\Exception $e) {
             DB::rollBack();
         }

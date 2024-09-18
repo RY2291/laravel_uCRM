@@ -2,17 +2,19 @@
 import axios from 'axios';
 import { ref, onMounted,reactive } from 'vue';
 
-const search = ref("");
-const customers = reactive({});
+const state = reactive({
+  search: "",
+  customers: {}
+});
 
 const isShow = ref(false);
 const toggleStatus = () => {{ isShow.value = !isShow.value }}
 
 const searchCustomers = async () => {
   try{
-    await axios.get(`/api/searchCustomer/?search=${search.value}`)
+    await axios.get(`/api/searchCustomer/?search=${state.search}`)
     .then( res => {
-      customers.value = res.data
+      state.customers = res.data
     })
     isShow.value = !isShow.value
   } catch (e){
@@ -25,7 +27,7 @@ const emit = defineEmits(['update:customerId']);
 
 // @clickイベントが発火するとsetCustomerの引数がeとして受け取られる
 const setCustomer = e => {
-  search.value = e.kana
+  state.search = e.kana
   emit('update:customerId', e.id)
   toggleStatus()
 }
@@ -42,7 +44,7 @@ const setCustomer = e => {
           <button type="button" @click="toggleStatus" class="modal__close" aria-label="Close modal" data-micromodal-close></button>
         </header>
         <main class="modal__content" id="modal-1-content">
-          <div v-if="customers.value" class="lg:w-2/3 w-full mx-auto overflow-auto">
+          <div v-if="state.customers" class="lg:w-2/3 w-full mx-auto overflow-auto">
             <table class="table-auto w-full text-left whitespace-no-wrap">
               <thead>
                 <tr>
@@ -58,7 +60,7 @@ const setCustomer = e => {
                 </tr>
               </thead>
               <tbody>
-                  <tr v-for="customer in customers.value.data" :key="customer.id">
+                  <tr v-for="customer in state.customers.data" :key="customer.id">
                     <td class="px-4 py-3 border-b-2 border-gray-200">
                       <button type="button" @click="setCustomer({ id: customer.id, kana: customer.kana})" class="text-blue-400">{{ customer.id }}</button>
                     </td>
@@ -77,7 +79,7 @@ const setCustomer = e => {
     </div>
   </div>
   <div>
-    <input type="text" name="customer" v-model="search" placeholder="カナ or TEL">
+    <input type="text" name="customer" v-model="state.search" placeholder="カナ or TEL">
     <button type="button" @click="searchCustomers" data-micromodal-trigger="modal-1" class="bg-green-400 hover:bg-blue-800 rounded-lg">検索する</button>
   </div>
 </template>

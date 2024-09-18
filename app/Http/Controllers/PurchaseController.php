@@ -7,6 +7,7 @@ use App\Http\Requests\UpdatePurchaseRequest;
 use App\Models\Purchase;
 use App\Models\Customer;
 use App\Models\Item;
+use App\Models\Order;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +20,8 @@ class PurchaseController extends Controller
      */
     public function index()
     {
-        //
+        $order = Order::paginate(20);
+        dd($order);
     }
 
     /**

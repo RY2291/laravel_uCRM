@@ -5,6 +5,9 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Database\Seeders\UserSeeder;
+use App\Models\Customer;
+use App\Models\Purchase;
+use App\Models\Item;
 
 class DatabaseSeeder extends Seeder
 {
@@ -19,6 +22,16 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             ItemSeeder::class
         ]);
-        \App\Models\Customer::factory(1000)->create();
+        Customer::factory(1000)->create();
+
+        $item = Item::all();
+        Purchase::factory(100)->create()
+        ->each(function(Purchase $purchase) use ($item){
+            $purchase->items()->attach(
+                $item->random(rand(1, 3))->pluck('id')->toArray(),
+                [ 'quantity' => rand(1, 5)]
+            );
+        });
+
     }
 }

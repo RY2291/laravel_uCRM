@@ -27,6 +27,8 @@ class Subtotal implements Scope
             ,   items.price as item_price
             ,   item_purchase.quantity as quantity
             ,   purchases.status as status
+            ,   purchases.created_at 
+            ,   purchases.updated_at 
             FROM purchases 
             LEFT JOIN item_purchase ON purchases.id = item_purchase.purchase_id
             LEFT JOIN items ON item_purchase.item_id = items.id

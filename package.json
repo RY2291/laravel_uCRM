@@ -12,7 +12,7 @@
         "@vitejs/plugin-vue": "^4.0.0",
         "autoprefixer": "^10.4.12",
         "axios": "^1.1.2",
-        "laravel-vite-plugin": "^0.7.2",
+        "laravel-vi∑te-plugin": "^0.7.2",
         "lodash": "^4.17.19",
         "postcss": "^8.4.18",
         "tailwindcss": "^3.2.1",
@@ -20,6 +20,7 @@
         "vue": "^3.2.41"
     },
     "dependencies": {
+        "dayjs": "^1.11.4",
         "micromodal": "^0.4.10",
         "yubinbango-core2": "^0.6.3"
     }

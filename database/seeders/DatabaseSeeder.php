@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
         Customer::factory(1000)->create();
 
         $item = Item::all();
-        Purchase::factory(100)->create()
+        Purchase::factory(10000)->create()
         ->each(function(Purchase $purchase) use ($item){
             $purchase->items()->attach(
                 $item->random(rand(1, 3))->pluck('id')->toArray(),

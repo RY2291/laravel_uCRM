@@ -2,7 +2,7 @@
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
 import { Inertia } from '@inertiajs/inertia';
 import { onMounted } from 'vue';
-import { Head} from '@inertiajs/inertia-vue3';
+import { Head, Link} from '@inertiajs/inertia-vue3';
 import FlashMessage from '@/Components/FlashMessage.vue';
 import Pagination from '@/Components/Pagination.vue';
 import dayjs from 'dayjs';
@@ -13,7 +13,7 @@ const props = defineProps({
 })
 
 onMounted(() => {
-  console.log(props.orders)
+  // console.log(props.orders)
 })
 
 </script>
@@ -36,7 +36,7 @@ onMounted(() => {
                 <FlashMessage />
                 <div class="flex pl-4 my-4 lg:w-2/3 w-full mx-auto">
                   <div>
-                    <input type="text" v-model="search" name="search">
+                    <!-- <input type="text" v-model="search" name="search"> -->
                     <button class="bg-blue-300 text-white py-2 px-2" @click="searchCustomers">検索</button>
                   </div>
                 </div>
@@ -59,7 +59,9 @@ onMounted(() => {
                     </thead>
                     <tbody>
                       <tr v-for="order in props.orders.data" :key="order.id">
-                        <td class="px-4 py-3 border-b-2 border-gray-200">{{ order.id }}</td>
+                        <td class="px-4 py-3 border-b-2 border-gray-200">
+                          <Link :href="route('purchase.show', {purchase: order.id})" class="text-blue-400">{{ order.id }}</Link>
+                        </td>
                         <td class="px-4 py-3 border-b-2 border-gray-200">{{ order.customer_name }}</td>
                         <td class="px-4 py-3 border-b-2 border-gray-200">{{ order.total }}</td>
                         <td class="px-4 py-3 border-b-2 border-gray-200">{{ order.status }}</td>

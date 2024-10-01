@@ -5,6 +5,7 @@ import { onMounted, reactive } from 'vue';
 import { getToday } from '@/common';
 import axios from 'axios';
 import Chart from '@/Components/Chart.vue';
+import ResultTable from '@/Components/ResultTable.vue';
 
 const form = reactive({
   startDate: null,
@@ -30,10 +31,11 @@ const getDate = async () => {
       }
     })
       .then(res => {
-        // console.log(res.data)
+        console.log(res.data)
         data.data = res.data.data
         data.labels = res.data.labels
         data.totals = res.data.totals
+        data.type = res.data.type
       })
   } catch (e) {
     console.log(e.message)
@@ -62,6 +64,7 @@ const getDate = async () => {
               <input type="radio" name="perDay" value="perDay" v-model="form.type" checked><span class="mr-2">日別</span>
               <input type="radio" name="perMonth" value="perMonth" v-model="form.type"><span class="mr-2">月別</span>
               <input type="radio" name="perYear" value="perYear" v-model="form.type"><span class="mr-2">年別</span>
+              <input type="radio" name="decile" value="decile" v-model="form.type"><span class="mr-2">デシル分析</span>
             </div>
             FROM:<input type="date" v-model="form.startDate" name="startDate">
             TO:<input type="date" v-model="form.endDate" name="endDate">
@@ -70,26 +73,7 @@ const getDate = async () => {
           </form>
           <div v-show="data.data">
             <Chart :data="data" />
-          </div>
-
-          <div v-show="data.data" class="lg:w-2/3 w-full mx-auto overflow-auto">
-            <table class="table-auto w-full text-left whitespace-no-wrap">
-              <thead>
-                <tr>
-                  <th
-                    class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100 rounded-tl rounded-bl">
-                    年月</th>
-                  <th class="px-4 py-3 title-font tracking-wider font-medium text-gray-900 text-sm bg-gray-100">
-                    金額</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr v-for="data in data.data" :key="data.date">
-                  <td class="px-4 py-3 border-b-2 border-gray-200">{{ data.date }}</td>
-                  <td class="px-4 py-3 border-b-2 border-gray-200">{{ data.total }}</td>
-                </tr>
-              </tbody>
-            </table>
+            <ResultTable :data="data" />
           </div>
         </div>
       </div>

@@ -6,16 +6,21 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use App\Services\AnalysisService;
 use App\Services\AnalysisServiceInterface;
+use App\Services\DecileServiceInterface;
 
 class AnalysisController extends Controller
 {
   protected $analysisService;
+  protected $decileService;
 
-  public function __construct(AnalysisServiceInterface $analysisService)
+  public function __construct(
+    AnalysisServiceInterface $analysisService,
+    DecileServiceInterface $decileService
+    )
   {
     $this->analysisService = $analysisService;
+    $this->decileService = $decileService;
   }
 
   public function index(Request $request)
@@ -30,6 +35,9 @@ class AnalysisController extends Controller
     }
     if($request->type === 'perYear') {
       list($data, $labels, $totals) = $this->analysisService->perYear($subQuery);
+    }
+    if($request->type === 'decile') {
+      list($data, $labels, $totals) = $this->decileService->decile($subQuery);
     }
 
     return response()->json([

@@ -5,6 +5,8 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\AnalysisService;
 use App\Services\AnalysisServiceInterface;
+use App\Services\DecileService;
+use App\Services\DecileServiceInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,7 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(AnalysisServiceInterface::class, AnalysisService::class);
+        $this->app->bind(DecileServiceInterface::class, DecileService::class);
     }
 
     /**

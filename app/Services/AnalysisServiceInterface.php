@@ -8,4 +8,6 @@ interface AnalysisServiceInterface
   public function perMonth($subQuery);
 
   public function perYear($subQuery);
+
+  public function rmfAnalysis($subQuery, $rfmPrms);
 }

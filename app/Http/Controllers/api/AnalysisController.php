@@ -39,6 +39,16 @@ class AnalysisController extends Controller
     if($request->type === 'decile') {
       list($data, $labels, $totals) = $this->decileService->decile($subQuery);
     }
+    if($request->type === 'rfm') {
+      list($rfData, $totals, $eachCount) = $this->analysisService->rmfAnalysis($subQuery, $request->rfmPrms);
+
+      return response()->json([
+        'data' => $rfData,
+        'type' => $request->type,
+        'eachCount' => $eachCount,
+        'totals' => $totals,
+      ], Response::HTTP_OK);
+    }
 
     return response()->json([
       'data' => $data,

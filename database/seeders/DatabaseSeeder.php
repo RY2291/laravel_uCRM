@@ -8,6 +8,8 @@ use Database\Seeders\UserSeeder;
 use App\Models\Customer;
 use App\Models\Purchase;
 use App\Models\Item;
+use Database\Seeders\RankSeeder;
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,7 +22,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             UserSeeder::class,
-            ItemSeeder::class
+            ItemSeeder::class,
+            RankSeeder::class
         ]);
         Customer::factory(1000)->create();
 

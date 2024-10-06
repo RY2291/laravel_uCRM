@@ -110,20 +110,23 @@ class AnalysisService implements AnalysisServiceInterface
 
     // ランク毎の数を計算する
     $rCount = DB::table($subQuery)
-      ->groupBy('r')
-      ->selectRaw('r, COUNT(r)')
+      ->rightJoin('ranks', 'ranks.rank', '=', 'r')
+      ->groupBy('rank')
+      ->selectRaw('rank as r, COUNT(r)')
       ->orderBy('r', 'desc')
       ->pluck('COUNT(r)');
 
     $fCount = DB::table($subQuery)
-      ->groupBy('f')
-      ->selectRaw('f, COUNT(f)')
+      ->rightJoin('ranks', 'ranks.rank', '=', 'r')
+      ->groupBy('rank')
+      ->selectRaw('rank as f, COUNT(f)')
       ->orderBy('f', 'desc')
       ->pluck('COUNT(f)');
 
     $mCount = DB::table($subQuery)
-      ->groupBy('m')
-      ->selectRaw('m, COUNT(m)')
+      ->rightJoin('ranks', 'ranks.rank', '=', 'm')
+      ->groupBy('rank')
+      ->selectRaw('rank as m, COUNT(m)')
       ->orderBy('m', 'desc')
       ->pluck('COUNT(m)');
 
